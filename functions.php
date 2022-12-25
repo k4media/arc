@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /**
  * Angkor Research & Consulting functions and definitions
  *
@@ -7,9 +12,9 @@
  * @package Angkor_Research_&_Consulting
  */
 
-if ( ! defined( '_S_VERSION' ) ) {
+if ( ! defined( 'ARC_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+	define( 'ARC_VERSION', '1.0.0' );
 }
 
 /**
@@ -49,7 +54,8 @@ function arc_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'menu-1' => esc_html__( 'Primary', 'arc' ),
+			'primary' => esc_html__( 'Primary', 'arc' ),
+			'footer' => esc_html__( 'Footer', 'arc' ),
 		)
 	);
 
@@ -70,18 +76,6 @@ function arc_setup() {
 		)
 	);
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'arc_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
-
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
@@ -93,12 +87,129 @@ function arc_setup() {
 	add_theme_support(
 		'custom-logo',
 		array(
-			'height'      => 250,
-			'width'       => 250,
+			'height'      => 45,
+			'width'       => 180,
 			'flex-width'  => true,
 			'flex-height' => true,
 		)
 	);
+
+	// Add support for Block Styles.
+	add_theme_support( 'wp-block-styles' );
+
+	// Add custom editor font sizes.
+	add_theme_support(
+		'editor-font-sizes',
+		array(
+			array(
+				'name'      => esc_html__( 'Small', 'arc' ),
+				'shortName' => esc_html_x( 'S', 'Font size', 'arc' ),
+				'size'      => 14,
+				'slug'      => 'extra-small',
+			),
+			array(
+				'name'      => esc_html__( 'Body', 'arc' ),
+				'shortName' => esc_html_x( 'M', 'Font size', 'arc' ),
+				'size'      => 16,
+				'slug'      => 'small',
+			),
+			array(
+				'name'      => esc_html__( 'Large', 'arc' ),
+				'shortName' => esc_html_x( 'L', 'Font size', 'arc' ),
+				'size'      => 18,
+				'slug'      => 'normal',
+			),
+			array(
+				'name'      => esc_html__( 'Big', 'arc' ),
+				'shortName' => esc_html_x( 'XL', 'Font size', 'arc' ),
+				'size'      => 28,
+				'slug'      => 'large',
+			),
+			array(
+				'name'      => esc_html__( 'Huge', 'arc' ),
+				'shortName' => esc_html_x( 'XXL', 'Font size', 'arc' ),
+				'size'      => 32,
+				'slug'      => 'extra-large',
+			),
+			array(
+				'name'      => esc_html__( 'Jumbo', 'arc' ),
+				'shortName' => esc_html_x( 'XXXL', 'Font size', 'arc' ),
+				'size'      => 56,
+				'slug'      => 'huge',
+			),
+			array(
+				'name'      => esc_html__( 'Super Jumbo', 'arc' ),
+				'shortName' => esc_html_x( 'XXXXL', 'Font size', 'arc' ),
+				'size'      => 72,
+				'slug'      => 'gigantic',
+			),
+		)
+	);
+
+	// Editor color palette.
+	$black     	  = '#000000';
+	$dark_gray 	  = '#131313';
+	$gray      	  = '#7D7D7D';
+	$light_gray   = '#F6F6F6';
+	$green     	  = '#004C45';
+	$bright_green = '#10B565'; 
+	$red		  = '#66000';
+	$yellow       = '#FFBD5C';
+	$white        = '#FFFFFF';
+
+	add_theme_support(
+		'editor-color-palette',
+		array(
+			array(
+				'name'  => esc_html__( 'Black', 'arc' ),
+				'slug'  => 'black',
+				'color' => $black,
+			),
+			array(
+				'name'  => esc_html__( 'Dark gray', 'arc' ),
+				'slug'  => 'dark-gray',
+				'color' => $dark_gray,
+			),
+			array(
+				'name'  => esc_html__( 'Gray', 'arc' ),
+				'slug'  => 'gray',
+				'color' => $gray,
+			),
+			array(
+				'name'  => esc_html__( 'Light Gray', 'arc' ),
+				'slug'  => 'light-gray',
+				'color' => $light_gray,
+			),
+			array(
+				'name'  => esc_html__( 'Green', 'arc' ),
+				'slug'  => 'green',
+				'color' => $green,
+			),
+			array(
+				'name'  => esc_html__( 'Bright Green', 'arc' ),
+				'slug'  => 'bright-green',
+				'color' => $bright_green,
+			),
+			array(
+				'name'  => esc_html__( 'Red', 'arc' ),
+				'slug'  => 'red',
+				'color' => $red,
+			),
+			array(
+				'name'  => esc_html__( 'Yellow', 'arc' ),
+				'slug'  => 'yellow',
+				'color' => $yellow,
+			),
+			array(
+				'name'  => esc_html__( 'White', 'arc' ),
+				'slug'  => 'white',
+				'color' => $white,
+			),
+		)
+	);
+
+	// Remove feed icon link from legacy RSS widget.
+	add_filter( 'rss_widget_feed_link', '__return_false' );
 }
 add_action( 'after_setup_theme', 'arc_setup' );
 
@@ -138,41 +249,64 @@ add_action( 'widgets_init', 'arc_widgets_init' );
  * Enqueue scripts and styles.
  */
 function arc_scripts() {
-	wp_enqueue_style( 'arc-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_style_add_data( 'arc-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'arc-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	// Theme Stylesheet
+	$filetime = filemtime( get_stylesheet_directory() . '/style.css');
+	wp_enqueue_style('arc', get_stylesheet_directory_uri() . '/style.css', false, $filetime, 'all');
+
+	// Theme JS
+	$filetime = filemtime( get_stylesheet_directory() . '/assets/js/arc.js');
+	wp_enqueue_script('arc', get_stylesheet_directory_uri() . '/assets/js/arc.js', array(), $filetime, true );
+
+	$params = array(
+		'ajaxurl' => admin_url( 'admin-ajax.php' )
+	);
+	wp_localize_script( 'arc', 'ajax_object', $params);
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
 }
 add_action( 'wp_enqueue_scripts', 'arc_scripts' );
 
 /**
- * Implement the Custom Header feature.
+ * Enqueue admin styles.
  */
-require get_template_directory() . '/inc/custom-header.php';
+add_action( 'admin_enqueue_scripts', 'enqueuing_admin_scripts' );
+function enqueuing_admin_scripts(){
+    wp_enqueue_style('arc', get_template_directory_uri().'/assets/css/admin.css');
+}
+/*
+ * Create a theme options page with ACF
+ */
+add_action( 'admin_menu', 'arc_settings_page' );
+function arc_settings_page() {
+	if( function_exists('acf_add_options_page') ) {
+		acf_add_options_page(array(
+			'page_title' 	=> "ARC Settings",
+			'menu_title'	=> "ARC",
+			'menu_slug' 	=> 'arc-settings',
+			'capability'	=> 'edit_posts',
+			'redirect'		=> false
+		));
+	}
+}
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require get_template_directory() . '/includes/template-tags.php';
 
 /**
- * Functions which enhance the theme by hooking into WordPress.
+ * ARC Theme files
  */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/includes/arc.php';
 
 /**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+	require get_template_directory() . '/includes/jetpack.php';
 }
 
