@@ -1,71 +1,71 @@
 <?php
 
 /**
- * Footer actions
+ * ARC Logo
  */
-add_action('footer_logo', 'footer_logo');
-function footer_logo() {
-    $mods = get_theme_mods();
-    echo '<div class="site-name"><img src="' . $mods['dfdl_logo_reversed'] . '"></div>';
+add_action('arc_logo', 'arc_logo');
+function arc_logo() {
+    if ( has_custom_logo() ) {
+        $custom_logo_id = get_theme_mod( 'custom_logo' );
+        $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+        if ( is_front_page() ) {
+            echo '<div class="site-logo"><img src="' . $image[0] . '"></div>';
+        } else {
+            echo '<div class="site-logo"><a href="' . get_home_url() . '"><img src="' . $image[0] . '"></a></div>';
+        }
+    }
 }
 
-add_action('footer_text', 'footer_text');
-function footer_text() {
+/**
+ * Footer actions
+ */
+
+add_action('arc_footer_text', 'arc_footer_text');
+function arc_footer_text() {
     if( function_exists('get_field') ) {
         $text = get_field('ftext', 'option');
         if ( isset($text) ) {
-            echo '<div class="footer-text">' . str_replace('[year]', date('Y'), $text) . '</div>';
+            $args = array(
+                'a' => array(
+                    'href' => array(),
+                    'title' => array()
+                ),
+                'br' => array(),
+                'em' => array(),
+                'strong' => array(),
+            );
+            echo wp_kses($text, $args);
         }
     }
 }
 
-add_action('footer_nav', 'footer_nav');
-function footer_nav() {
-    echo '<div class="footer-nav">';
-    wp_nav_menu( array(
-        'theme_location'	=> 'footer',
-        'fallback_cb'       => '',
-        'container'         => 'nav'
-    ) );
-    echo '</div>';
-}
-
-add_action('copyright_notice', 'copyright_notice');
-function copyright_notice() {
-    if( function_exists('get_field') ) {
-        $notice = get_field('cnotice', 'option');
-        if ( isset($notice) ) {
-            echo '<div class="copyright-notice">' . str_replace('[year]', date('Y'), $notice) . '</div>';
-        }
-    }
-}
-
-add_action('social_links', 'social_links');
-function social_links() {
+add_action('arc_social_links', 'arc_social_links');
+function arc_social_links() {
     $mods = get_theme_mods();
     echo '<div class="social-links">';
-    if ( isset($mods['dfdl_linkedin']) ) {
-        echo '<a href="' . $mods['dfdl_linkedin'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-linkedin.svg"></a>';
+    if ( isset($mods['arc_linkedin']) ) {
+        echo '<a href="' . $mods['arc_linkedin'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-linkedin.svg"></a>';
     }
-    if ( isset($mods['dfdl_facebook']) ) {
-        echo '<a href="' . $mods['dfdl_facebook'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-facebook.svg"></a>';
+    if ( isset($mods['arc_facebook']) ) {
+        echo '<a href="' . $mods['arc_facebook'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-facebook.svg"></a>';
     }
-    if ( isset($mods['dfdl_twitter']) ) {
-        echo '<a href="' . $mods['dfdl_twitter'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-twitter.svg"></a>';
+    if ( isset($mods['arc_twitter']) ) {
+        echo '<a href="' . $mods['arc_twitter'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-twitter.svg"></a>';
     }  
-    if ( isset($mods['dfdl_youtube']) ) {
-        echo '<a href="' . $mods['dfdl_youtube'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-youtube.svg"></a>';
+    if ( isset($mods['arc_youtube']) ) {
+        echo '<a href="' . $mods['arc_youtube'] . '"><img src="' . get_stylesheet_directory_uri() . '/assets/media/icon-youtube.svg"></a>';
     }
     echo '</div>';
 }
 
-add_action('legal_nav', 'legal_nav');
-function legal_nav() {
-    echo '<div class="legal-nav">';
-    wp_nav_menu( array(
-        'theme_location'	=> 'footer',
-        'fallback_cb'       => '',
-        'container'         => 'nav'
-    ) );
+add_action('arc_copyright', 'arc_copyright');
+function arc_copyright() {
+    echo '<div id="fineprint">';
+        echo '<div class="copyright-notice">&copy; Copyright ' . date('Y') . ' ' . get_bloginfo('name') . '</div>';
+        wp_nav_menu( array(
+            'theme_location'	=> 'footer',
+            'fallback_cb'       => '',
+            'container'         => ''
+        ) );
     echo '</div>';
 }

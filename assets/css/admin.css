@@ -1,0 +1,81 @@
+/* Variables */
+:root {
+	/* Colors */
+	--color-black: #000;
+	--color-dark-gray: #131313;
+	--color-gray: #7D7D7D;
+	--color-light-gray: #F6F6F6;
+	--color-whisper: #E7E7E7;
+	--color-turquoise: #219DA9;
+	--color-red: #D81D3F;
+	--color-blue: #203147;
+	--color-white: #fff;
+	--color-arc-gradient: linear-gradient(90deg,rgba(33,157,169,1) 40%,rgb(32,49,71,1) 100%);
+	--setting-silo-max-width: 1600px;
+	--font-size-small: 14px;
+	--font-size-body: 20px;
+	--font-size-large: 24px;
+	--font-size-larger: 28px;
+	--font-size-huge: 32px;
+	--font-size-jumbo: 56px;
+	--font-size-super-jumbo: 72px;
+}
+html :where(.wp-block) {
+	max-width: 1040px;
+}
+#front-page-hero {
+    height: 250px;
+}
+.hero .overlay {
+    background-color: rgba(32, 49, 71, .2);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.hero .copy-stage {
+    background-color: rgba(32, 49, 71, .4);
+    font-size: smaller;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+.hero .copy {
+    align-items: center;
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    padding: 1em var(--font-size-body) 1em var(--font-size-body);
+}
+.hero .copy h2 {
+    font-size: 2em;
+    letter-spacing: .01em;
+    line-height: 1.2em;
+    margin: .5em 0 .5em ;
+}
+.countup-boxes {
+    display: flex;
+    justify-content: space-around;
+}
+.countup-boxes .number {
+    display: block;
+    font-weight: 700;
+}
+.countup-boxes .label {
+    display: block;
+}
+.countup-boxes .countup:nth-child(2) {
+    margin: 0 3em 0 3em ;
+}
+
+
+#our-services {
+    padding: 1em 0 1em 0;
+}
+#our-services .column1 {
+    font-size: var(--font-size-small);
+}
+#our-services .image img {
+    height: 100%;
+    max-height: 100%;
+}

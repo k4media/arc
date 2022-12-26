@@ -8,7 +8,6 @@
  *
  * @package Angkor_Research_&_Consulting
  */
-
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -18,25 +17,27 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<?php wp_head(); ?>
 </head>
-
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'arc' ); ?></a>
-
 	<header id="masthead" class="site-header">
-		<div class="site-branding">
-			<?php do_action("arc_logo") ?>
-		</div><!-- .site-branding -->
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'arc' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'mprimary',
-					'menu_id'        => 'primary',
-				)
-			);
-			?>
-		</nav><!-- #site-navigation -->
+		<div class='silo'>
+			<div class="site-branding">
+				<?php do_action("arc_logo") ?>
+			</div><!-- .site-branding -->
+			<nav id="site-navigation" class="main-navigation">
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'arc' ); ?></button>
+				<?php
+				wp_nav_menu(
+					array(
+						'theme_location' => 'primary',
+						'menu_id'        => 'primary',
+						'fallback_cb'	 => false,
+						'container'		 => ''
+					)
+				);
+				?>
+			</nav><!-- #site-navigation -->
+		</div>
 	</header><!-- #masthead -->

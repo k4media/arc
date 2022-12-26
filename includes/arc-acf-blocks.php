@@ -9,16 +9,16 @@
 */
 add_action( 'init', 'register_acf_blocks' );
 function register_acf_blocks() {
-	foreach ( glob( get_stylesheet_directory() . "/includes/blocks/*/block.json" ) as $file ) {
+	foreach ( glob( get_stylesheet_directory() . "/includes/template-parts/blocks/*/block.json" ) as $file ) {
 		register_block_type( $file );
 	}
 }
 
-// Add DFDL block category
+// Add ARC block category
 add_filter( 'block_categories_all' , function( $categories ) {
 	$categories[] = array(
-		'slug'  => 'dfdl-block',
-		'title' => 'DFDL'
+		'slug'  => 'arc-block',
+		'title' => 'ARC'
 	);
 	return $categories;
 } );

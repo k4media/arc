@@ -4,6 +4,11 @@
  * ARC Theme bootstap
  */
 
+ /**
+ * Theme Functions
+ */
+require get_template_directory() . '/includes/arc-functions.php';
+
 /**
  * Theme Actions
  */

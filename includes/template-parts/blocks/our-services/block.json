@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "acf/arc-our-services",
+    "title": "Our Services",
+    "description": "Frontpage callout for Our Services",
+    "style": [ "file:./style.css" ],
+    "category": "arc-block",
+    "icon": "dashicons-clipboard",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template.php"
+    },
+    "align": "full"
+}

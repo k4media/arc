@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "acf/arc-page-hero",
+    "title": "Page Hero",
+    "description": "Page hero with title",
+    "style": [ "file:./style.css" ],
+    "category": "arc-block",
+    "icon": "dashicons-image",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template.php"
+    },
+    "align": "full"
+}

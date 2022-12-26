@@ -1,0 +1,101 @@
+/* Variables */
+:root {
+	/* Colors */
+	--color-black: #000;
+	--color-dark-gray: #131313;
+	--color-gray: #7D7D7D;
+	--color-light-gray: #cccccc;
+	--color-whisper: #E7E7E7;
+	--color-turquoise: #219DA9;
+	--color-red: #D81D3F;
+	--color-blue: #203147;
+	--color-white: #fff;
+	--color-arc-gradient: linear-gradient(90deg,rgba(33,157,169,1) 40%,rgb(32,49,71,1) 100%);
+	--setting-silo-max-width: 1600px;
+	--font-size-small: 14px;
+	--font-size-body: 20px;
+	--font-size-large: 24px;
+	--font-size-larger: 28px;
+	--font-size-huge: 32px;
+	--font-size-jumbo: 56px;
+	--font-size-super-jumbo: 72px;
+}
+body {
+	color: var(--color-dark-gray);
+	font-family: "Roboto", sans-serif;
+	font-size: var(--font-size-body);
+	font-weight: 400;
+}
+.silo {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: var(--setting-silo-max-width);
+}
+.site-header {
+	background-image: var(--color-arc-gradient);
+	padding: 20px 0 20px 0;
+}
+.site-header .silo {
+	align-items: center;
+	display: flex;
+	padding-left: var(--font-size-body);
+	padding-right: var(--font-size-body);
+}
+.site-header img {
+	display: block;
+	height: auto;
+	max-width: 180px;
+	width: 180px;
+}
+.site-header ul {
+	display: flex;
+	margin: 2px 0 0 3em;
+}
+.site-header li {
+	padding-right: 1.2em;
+}
+.site-header li a {
+	border-bottom: solid 2px transparent;
+	color: var(--color-white);
+	font-weight: 400;
+}
+.site-header li a:hover,
+.site-header .current-menu-item a {
+	border-bottom: solid 2px var(--color-white);
+}
+#colophon {
+	background-color: var(--color-blue);
+	color: var(--color-white);
+	font-size: var(--font-size-small);
+	padding: 4em var(--font-size-body) 2em var(--font-size-body);
+}
+#colophon .silo {
+	display: flex;
+	justify-content: space-between;
+}
+#colophon .site-info img {
+	margin-bottom: 1em;
+	width: 220px
+}
+#colophon .follow img {
+	height: 32px;
+	margin-left: 2em;
+}
+#fineprint {
+	display: flex;
+	margin-top: 3em;
+}
+#fineprint ul {
+	margin-left: 1em;
+	padding-left: 0;
+}
+#fineprint li {
+	display: inline;
+	list-style-type: none;
+	margin-right: .5em;
+}
+#fineprint li a {
+	border-bottom: dotted 1px var(--color-gray);
+	color: var(--color-light-gray);
+	text-decoration: none;
+}

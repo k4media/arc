@@ -1,0 +1,20 @@
+.photo-feature {
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 80vh;
+    position: relative;
+}
+.photo-feature .caption {
+    background-color: rgba(255,255,255,.8);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 50%;
+}
+.photo-feature .caption p {
+    color: var(--color-charcoal);
+    font-size: var(--font-size-small);
+    padding-left: 1em;
+    margin: 1em 0 1em 0;
+    max-width: 52em;
+}

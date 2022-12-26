@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "acf/arc-photo-feature",
+    "title": "Photo Feature",
+    "description": "Full-width photo with caption",
+    "style": [ "file:./style.css" ],
+    "category": "arc-block",
+    "icon": "format-image",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template.php"
+    },
+    "align": "full"
+}

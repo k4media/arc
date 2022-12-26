@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "acf/arc-fp-page-hero",
+    "title": "Front Page Hero",
+    "description": "Front page hero with title and count-up boxes",
+    "style": [ "file:./style.css" ],
+    "category": "arc-block",
+    "icon": "cover-image",
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "template.php"
+    },
+    "align": "full"
+}

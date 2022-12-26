@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 /**
  * Angkor Research & Consulting functions and definitions
@@ -110,17 +110,17 @@ function arc_setup() {
 			array(
 				'name'      => esc_html__( 'Body', 'arc' ),
 				'shortName' => esc_html_x( 'M', 'Font size', 'arc' ),
-				'size'      => 16,
+				'size'      => 20,
 				'slug'      => 'small',
 			),
 			array(
 				'name'      => esc_html__( 'Large', 'arc' ),
 				'shortName' => esc_html_x( 'L', 'Font size', 'arc' ),
-				'size'      => 18,
+				'size'      => 24,
 				'slug'      => 'normal',
 			),
 			array(
-				'name'      => esc_html__( 'Big', 'arc' ),
+				'name'      => esc_html__( 'Larger', 'arc' ),
 				'shortName' => esc_html_x( 'XL', 'Font size', 'arc' ),
 				'size'      => 28,
 				'slug'      => 'large',
@@ -147,15 +147,14 @@ function arc_setup() {
 	);
 
 	// Editor color palette.
-	$black     	  = '#000000';
-	$dark_gray 	  = '#131313';
-	$gray      	  = '#7D7D7D';
-	$light_gray   = '#F6F6F6';
-	$green     	  = '#004C45';
-	$bright_green = '#10B565'; 
-	$red		  = '#66000';
-	$yellow       = '#FFBD5C';
-	$white        = '#FFFFFF';
+	$black     	= '#000000';
+	$dark_gray 	= '#131313';
+	$gray      	= '#7D7D7D';
+	$light_gray = '#F6F6F6';
+	$turquoise  = '#219DA9';
+	$red		= '#D81D3F';
+	$blue       = '#FFBD5C';
+	$white      = '#203147';
 
 	add_theme_support(
 		'editor-color-palette',
@@ -181,14 +180,9 @@ function arc_setup() {
 				'color' => $light_gray,
 			),
 			array(
-				'name'  => esc_html__( 'Green', 'arc' ),
-				'slug'  => 'green',
-				'color' => $green,
-			),
-			array(
-				'name'  => esc_html__( 'Bright Green', 'arc' ),
-				'slug'  => 'bright-green',
-				'color' => $bright_green,
+				'name'  => esc_html__( 'Turquoise', 'arc' ),
+				'slug'  => 'turquoise',
+				'color' => $turquoise,
 			),
 			array(
 				'name'  => esc_html__( 'Red', 'arc' ),
@@ -196,16 +190,25 @@ function arc_setup() {
 				'color' => $red,
 			),
 			array(
-				'name'  => esc_html__( 'Yellow', 'arc' ),
-				'slug'  => 'yellow',
-				'color' => $yellow,
+				'name'  => esc_html__( 'Blue', 'arc' ),
+				'slug'  => 'blue',
+				'color' => $blue,
 			),
 			array(
 				'name'  => esc_html__( 'White', 'arc' ),
 				'slug'  => 'white',
 				'color' => $white,
 			),
+		),
+		'editor-gradient-presets',
+		array(
+			array(
+				'name'     => esc_attr__( 'ARC turquoise to blue', 'arc' ),
+				'gradient' => 'linear-gradient(135deg,rgba(33,157,169,1) 100%,rgb(32,49,71,1) 100%)',
+				'slug'     => 'arc-turquoise-to-blue'
+			),
 		)
+
 	);
 
 	// Remove feed icon link from legacy RSS widget.
@@ -250,9 +253,13 @@ add_action( 'widgets_init', 'arc_widgets_init' );
  */
 function arc_scripts() {
 
-	// Theme Stylesheet
+	// _s Stylesheet
 	$filetime = filemtime( get_stylesheet_directory() . '/style.css');
-	wp_enqueue_style('arc', get_stylesheet_directory_uri() . '/style.css', false, $filetime, 'all');
+	wp_enqueue_style('underscores', get_stylesheet_directory_uri() . '/style.css', false, $filetime, 'all');
+
+	// Theme Stylesheet
+	$filetime = filemtime( get_stylesheet_directory() . '/assets/css/arc.css');
+	wp_enqueue_style('arc', get_stylesheet_directory_uri() . '/assets/css/arc.css', false, $filetime, 'all');
 
 	// Theme JS
 	$filetime = filemtime( get_stylesheet_directory() . '/assets/js/arc.js');
@@ -277,6 +284,16 @@ add_action( 'admin_enqueue_scripts', 'enqueuing_admin_scripts' );
 function enqueuing_admin_scripts(){
     wp_enqueue_style('arc', get_template_directory_uri().'/assets/css/admin.css');
 }
+
+/*
+ * Enqueue google fonts
+ */
+add_action('wp_print_styles', 'arc_load_fonts');
+function arc_load_fonts() {
+	wp_register_style('googleFonts', '//fonts.googleapis.com/css?family=Roboto:wght@400;700;900&display=swap');
+	wp_enqueue_style('googleFonts');
+}
+
 /*
  * Create a theme options page with ACF
  */

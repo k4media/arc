@@ -1,0 +1,51 @@
+#front-page-hero {
+    align-items: flex-end;
+    background-position: 50% 50%;
+    background-size: cover;
+    display: flex;
+    height: 80vh;
+    position: relative;
+}
+.hero .overlay {
+    background-color: rgba(32, 49, 71, .2);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.hero .copy-stage {
+    background-color: rgba(32, 49, 71, .4);
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+.hero .copy {
+    align-items: center;
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    padding: 1em var(--font-size-body) 1em var(--font-size-body);
+}
+.hero .copy h2 {
+    font-size: 2em;
+    letter-spacing: .01em;
+    line-height: 1.2em;
+    margin: .5em 0 .5em ;
+}
+.countup-boxes {
+    display: flex;
+    justify-content: space-around;
+}
+.countup-boxes .number {
+    display: block;
+    font-size: 2.5em;
+    font-weight: 700;
+    line-height: 1em;
+}
+.countup-boxes .label {
+    display: block;
+    font-size: var(--font-size-large);
+}
+.countup-boxes .countup:nth-child(2) {
+    margin: 0 3em 0 3em ;
+}

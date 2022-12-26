@@ -1,0 +1,24 @@
+#our-services {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    padding: 4em 0 4em 0;
+}
+#our-services .silo {
+    display: flex;
+}
+#our-services .silo > div {
+    flex: 1 1 50%;
+    padding: var(--font-size-body);
+}
+#our-services h3 {
+    letter-spacing: .025em;
+    text-transform: uppercase;
+}
+#our-services .column2 {
+    display: flex;
+    justify-content: center;
+}
+#our-services .image {
+    display: flex;
+    max-width: 550px;
+}
