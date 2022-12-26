@@ -1,6 +1,6 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "name": "acf/arc-fp-page-hero",
+    "name": "acf/arc-front-page-hero",
     "title": "Front Page Hero",
     "description": "Front page hero with title and count-up boxes",
     "style": [ "file:./style.css" ],

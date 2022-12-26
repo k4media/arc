@@ -1,11 +1,11 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "name": "acf/arc-page-hero",
-    "title": "Page Hero",
-    "description": "Page hero",
+    "name": "acf/arc-page-lead",
+    "title": "Page Lead",
+    "description": "Large text intro to the page",
     "style": [ "file:./style.css" ],
     "category": "arc-block",
-    "icon": "cover-image",
+    "icon": "editor-aligncenter",
     "acf": {
         "mode": "preview",
         "renderTemplate": "template.php"

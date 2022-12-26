@@ -67,8 +67,6 @@ html :where(.wp-block) {
 .countup-boxes .countup:nth-child(2) {
     margin: 0 3em 0 3em ;
 }
-
-
 #our-services {
     padding: 1em 0 1em 0;
 }
@@ -78,4 +76,7 @@ html :where(.wp-block) {
 #our-services .image img {
     height: 100%;
     max-height: 100%;
+}
+.photo-feature {
+    height: 300px;
 }

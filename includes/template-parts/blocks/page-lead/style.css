@@ -1,0 +1,11 @@
+#page-lead {
+    background-color: var(--color-blue);
+    padding: 3em var(--font-size-body) 3em var(--font-size-body);
+}
+#page-lead .silo {
+    border-bottom: solid 1px var(--color-white);
+    color: var(--color-white);
+    font-size: var(--font-size-larger);
+    max-width: 42em;
+    padding-bottom: 2em;
+}
