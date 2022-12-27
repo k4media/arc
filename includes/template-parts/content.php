@@ -10,26 +10,26 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	
+	<?php arc_post_thumbnail(); ?>
+
 	<header class="entry-header">
 		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
+		
+		the_title( '<h1 class="entry-title">', '</h1>' );
 
 		if ( 'post' === get_post_type() ) :
 			?>
 			<div class="entry-meta">
 				<?php
-				arc_posted_on();
-				arc_posted_by();
+				    $post_date = get_the_date( 'M d, Y' );
+					echo '<span class="posted-on">' . $post_date . '</span> | ';
+					echo '<span class="posted-in">' . arc_post_tags() . '</span><br>';
+					arc_posted_by();
 				?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
 	</header><!-- .entry-header -->
-
-	<?php arc_post_thumbnail(); ?>
 
 	<div class="entry-content">
 		<?php
@@ -48,12 +48,6 @@
 			)
 		);
 
-		wp_link_pages(
-			array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'arc' ),
-				'after'  => '</div>',
-			)
-		);
 		?>
 	</div><!-- .entry-content -->
 

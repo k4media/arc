@@ -149,7 +149,7 @@ function arc_setup() {
 	// Editor color palette.
 	$black     	= '#000000';
 	$dark_gray 	= '#131313';
-	$gray      	= '#7D7D7D';
+	$gray      	= '#555555';
 	$light_gray = '#F6F6F6';
 	$turquoise  = '#219DA9';
 	$red		= '#D81D3F';
@@ -290,7 +290,7 @@ function enqueuing_admin_scripts(){
  */
 add_action('wp_print_styles', 'arc_load_fonts');
 function arc_load_fonts() {
-	wp_register_style('googleFonts', '//fonts.googleapis.com/css?family=Roboto:wght@400;700;900&display=swap');
+	wp_register_style('googleFonts', '//fonts.googleapis.com/css?family=Roboto:wght@400,700,900&display=swap');
 	wp_enqueue_style('googleFonts');
 }
 

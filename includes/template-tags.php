@@ -7,6 +7,18 @@
  * @package Angkor_Research_&_Consulting
  */
 
+if ( ! function_exists( 'arc_post_tags' ) ) :
+	function arc_post_tags() {
+		global $post;
+		$output = array();
+		$categories = get_the_category();
+		foreach( $categories as $category) {
+			$output[] = '<a href="' . get_category_link( $category->term_id ) . '">' . esc_attr($category->name) . '</a>';
+		}
+		return implode(", ", $output);
+	}
+endif;
+
 if ( ! function_exists( 'arc_posted_on' ) ) :
 	/**
 	 * Prints HTML with meta information for the current post-date/time.
@@ -27,7 +39,7 @@ if ( ! function_exists( 'arc_posted_on' ) ) :
 
 		$posted_on = sprintf(
 			/* translators: %s: post date. */
-			esc_html_x( 'Posted on %s', 'post date', 'arc' ),
+			esc_html_x( '%s', 'post date', 'arc' ),
 			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 		);
 
@@ -43,7 +55,7 @@ if ( ! function_exists( 'arc_posted_by' ) ) :
 	function arc_posted_by() {
 		$byline = sprintf(
 			/* translators: %s: post author. */
-			esc_html_x( 'by %s', 'post author', 'arc' ),
+			esc_html_x( 'By %s', 'post author', 'arc' ),
 			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
 		);
 
