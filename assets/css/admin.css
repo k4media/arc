@@ -67,15 +67,19 @@ html :where(.wp-block) {
 .countup-boxes .countup:nth-child(2) {
     margin: 0 3em 0 3em ;
 }
-#our-services {
-    padding: 1em 0 1em 0;
+#page-lead {
+    padding: 1em;
 }
-#our-services .column1 {
-    font-size: var(--font-size-small);
+#page-lead .silo {
+    border-bottom: 0;
+    font-size: var(--font-size-large);
+    padding: 0;
 }
-#our-services .image img {
-    height: 100%;
-    max-height: 100%;
+.content-block {
+    padding: 1em;
+}
+.content-block .silo > div {
+   padding: 1em;
 }
 .photo-feature {
     height: 300px;

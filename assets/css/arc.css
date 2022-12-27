@@ -11,7 +11,7 @@
 	--color-blue: #203147;
 	--color-white: #fff;
 	--color-arc-gradient: linear-gradient(90deg,rgba(33,157,169,1) 40%,rgb(32,49,71,1) 100%);
-	--setting-silo-max-width: 1600px;
+	--setting-silo-max-width: 1400px;
 	--font-size-small: 14px;
 	--font-size-body: 20px;
 	--font-size-large: 24px;
@@ -26,10 +26,12 @@ body {
 	font-size: var(--font-size-body);
 	font-weight: 400;
 }
-.silo {
+.silo, .wp-block-columns {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: var(--setting-silo-max-width);
+	padding-left: var(--font-size-body);
+	padding-right: var(--font-size-body);
 }
 .site-header {
 	background-image: var(--color-arc-gradient);
@@ -38,8 +40,6 @@ body {
 .site-header .silo {
 	align-items: center;
 	display: flex;
-	padding-left: var(--font-size-body);
-	padding-right: var(--font-size-body);
 }
 .site-header img {
 	display: block;
@@ -67,11 +67,20 @@ body {
 	background-color: var(--color-blue);
 	color: var(--color-white);
 	font-size: var(--font-size-small);
-	padding: 4em var(--font-size-body) 2em var(--font-size-body);
+	padding-bottom: 2em;
+	padding-top: 4em;
 }
 #colophon .silo {
 	display: flex;
 	justify-content: space-between;
+}
+.site-footer > div:first-child {
+	border-top: solid 1px var(--color-white);
+	padding-top: 4em;
+}
+.home .site-footer > div:first-child {
+	border-top: 0;
+	padding-top: 2em;
 }
 #colophon .site-info img {
 	margin-bottom: 1em;
@@ -84,6 +93,9 @@ body {
 #fineprint {
 	display: flex;
 	margin-top: 3em;
+}
+#fineprint.silo {
+	justify-content: flex-start;
 }
 #fineprint ul {
 	margin-left: 1em;

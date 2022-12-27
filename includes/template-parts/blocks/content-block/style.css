@@ -1,0 +1,37 @@
+.entry-content div:last-child {
+    padding-bottom: 0;
+}
+.content-block {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    padding-bottom: 2em;
+    padding-top: 2em;
+}
+.home .content-block {
+    padding-bottom: 4em;
+    padding-top: 4em;
+}
+.content-block .silo {
+    display: flex;
+}
+.content-block .silo > div {
+    flex: 1 1 50%;
+}
+.content-block .column2 {
+    display: flex;
+    justify-content: center;
+}
+.content-block .image {
+    max-width: 550px;
+}
+.content-block h3 {
+    letter-spacing: .035em;
+    font-size: var(--font-size-large);
+}
+.content-block h4 {
+    letter-spacing: .025em;
+    margin-bottom: 0;
+}
+.content-block h4 + p{
+    margin-top: .15em;
+}

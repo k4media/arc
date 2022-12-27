@@ -15,9 +15,7 @@
           }
      }
 
-     if ( function_exists('arc_frontpage_hero_url') ) {
-          $url = arc_frontpage_hero_url();
-     }
+     $url = arc_frontpage_hero_url();
 
 ?>
 <div id="front-page-hero" class="hero" style="background-image:url(<?php if ( isset($url) ) { echo $url; } ?>)">

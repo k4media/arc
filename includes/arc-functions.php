@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Get url for front page image
- */
+* Get url for front page image
+*/
 function arc_frontpage_hero_url() {
 
     // transient key
@@ -12,14 +12,14 @@ function arc_frontpage_hero_url() {
     $cache_ttl = 1 * DAY_IN_SECONDS;
 
     // get url tranisent
-    $url       = get_transient( $cache_key );
+    $url = get_transient( $cache_key );
     if ( false !== $url) 
         return $url[0];
     
     // refresh transient
     if ( function_exists('get_field') ) {
         $gallery = get_field('gallery');
-        if ( is_array($gallery) ) {
+         if ( is_array($gallery) ) {
             $images  = array();
             foreach ( $gallery as $g ) {
                 $images[] = $g['url'];

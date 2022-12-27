@@ -60,7 +60,7 @@ function arc_social_links() {
 
 add_action('arc_copyright', 'arc_copyright');
 function arc_copyright() {
-    echo '<div id="fineprint">';
+    echo '<div id="fineprint" class="silo">';
         echo '<div class="copyright-notice">&copy; Copyright ' . date('Y') . ' ' . get_bloginfo('name') . '</div>';
         wp_nav_menu( array(
             'theme_location'	=> 'footer',

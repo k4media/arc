@@ -1,11 +1,11 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "name": "acf/arc-page-hero",
-    "title": "Page Hero",
-    "description": "Full-size image and page title at top of page",
+    "name": "acf/arc-content-block",
+    "title": "Content Block",
+    "description": "Two-column block for text and photo",
     "style": [ "file:./style.css" ],
     "category": "arc-block",
-    "icon": "cover-image",
+    "icon": "columns",
     "acf": {
         "mode": "preview",
         "renderTemplate": "template.php"
