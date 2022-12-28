@@ -9,15 +9,24 @@
 
 get_header();
 ?>
-
 	<div class="stage">
-		<?php get_sidebar(); ?>
+		<?php
+			if ( "arc_projects" === get_post_type() ) {
+				get_sidebar("projects");
+			} else {
+				get_sidebar();
+			}
+		?>
 		<main id="primary" class="single">
 			<?php
 			while ( have_posts() ) :
 				the_post();
 
-				get_template_part( 'includes/template-parts/content', get_post_type() );
+				if ( "arc_projects" === get_post_type() ) {
+					get_template_part( 'includes/template-parts/content/content', 'project' );
+				} else {
+					get_template_part( 'includes/template-parts/content/content', get_post_type() );
+				}
 
 				// If comments are open or we have at least one comment, load up the comment template.
 				if ( comments_open() || get_comments_number() ) :

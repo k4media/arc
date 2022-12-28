@@ -23,3 +23,8 @@ require get_template_directory() . '/includes/arc-customizer.php';
  * ACF Page Blocks
  */
 require 'arc-acf-blocks.php';
+
+/**
+ * Custom Post Types
+ */
+require 'arc-custom-post-types.php';

@@ -242,3 +242,8 @@ body {
 .comment-metadata {
 	font-size: var(--font-size-small);
 }
+
+#secondary .current-menu-item {
+	color: var(--color-turquoise);
+	font-weight: 900;
+}

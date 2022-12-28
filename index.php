@@ -15,7 +15,13 @@
 get_header();
 ?>
 	<div class="stage">
-		<?php get_sidebar(); ?>
+		<?php
+			if ( "arc_projects" === get_post_type() ) {
+				get_sidebar("projects");
+			} else {
+				get_sidebar();
+			}
+		?>
 		<main id="primary" class="site-main">
 
 			<?php
@@ -30,7 +36,11 @@ get_header();
 					* If you want to override this in a child theme, then include a file
 					* called content-___.php (where ___ is the Post Type name) and that will be used instead.
 					*/
-					get_template_part( 'includes/template-parts/content', 'loop' );
+					if ( "arc_projects" === get_post_type() ) {
+						get_template_part( 'includes/template-parts/content/content', 'project-loop' );
+					} else {
+						get_template_part( 'includes/template-parts/content/content', 'loop' );
+					}
 
 				endwhile;
 

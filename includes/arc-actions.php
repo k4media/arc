@@ -16,6 +16,75 @@ function arc_logo() {
     }
 }
 
+add_action('arc_project_filters', 'arc_project_filters');
+function arc_project_filters() {
+
+    $services     = array();
+
+    $get_service  = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
+    $service_term = get_term_by( 'slug', $get_service , 'arc_project_tax' );
+
+    if ( ! isset($_GET['service']) || false === $service_term ) {
+        $services[] = '<li><span class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">View All</span></li>';
+    } else {
+        $services[] = '<li><a href="' . get_post_type_archive_link('arc_projects') . '">View All</a></li>';
+    }
+    
+    $args = array(
+        'taxonomy' => 'arc_project_tax',
+        'hide_empty' => false,
+    );
+    $terms = get_terms($args);
+
+    if ( is_array($terms) ) {
+        foreach ($terms as $t) {
+            $class="";
+            if ( $get_service === $t->slug ) {
+                $services[] = '<li><a class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">' . $t->name. '</a></li>';
+            } else {
+                $services[] = '<li><a class="" href="' . get_post_type_archive_link('arc_projects') . '?service=' . $t->slug . '">' . $t->name. '</a></li>';
+            }
+        }
+    }
+
+    echo '<h2>Services</h2>';
+    echo '<ul class="arc-services">' . implode("", $services) . '</ul>';
+
+
+    $clients     = array();
+
+    $get_client  = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
+    $client_term = get_term_by( 'slug', $get_client , 'arc_clients' );
+
+    if ( ! isset($_GET['client']) || false === $client_term ) {
+        $clients[] = '<li><span class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">View All</span></li>';
+    } else {
+        $clients[] = '<li><a href="' . get_post_type_archive_link('arc_projects') . '">View All</a></li>';
+    }
+    
+    $args = array(
+        'taxonomy' => 'arc_clients',
+        'hide_empty' => false,
+    );
+    $terms = get_terms($args);
+
+    if ( is_array($terms) ) {
+        foreach ($terms as $t) {
+            $class="";
+            if ( $get_client === $t->slug ) {
+                $clients[] = '<li><a class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">' . $t->name. '</a></li>';
+            } else {
+                $clients[] = '<li><a class="" href="' . get_post_type_archive_link('arc_projects') . '?client=' . $t->slug . '">' . $t->name. '</a></li>';
+            }
+        }
+    }
+
+    echo '<h2>Clients</h2>';
+    echo '<ul class="arc-clients">' . implode("", $clients) . '</ul>'; 
+    
+
+}
+
 /**
  * Footer actions
  */
