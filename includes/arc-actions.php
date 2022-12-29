@@ -16,6 +16,26 @@ function arc_logo() {
     }
 }
 
+add_action( 'pre_get_posts', 'arc_project_archive_filters');
+function arc_project_archive_filters( $query ) {
+
+	$service = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
+	$service_term = get_term_by( 'slug', $service , 'arc_project_tax' );
+
+	if ( is_object($service_term) && isset($service_term->term_id) ) {
+		$taxquery = array(
+			array(
+				'taxonomy' => 'arc_project_tax',
+				'field' => 'term_id',
+				'terms' => array($service_term->term_id),
+				'operator'=> 'IN'
+			)
+		);
+		$query->set( 'tax_query', $taxquery );
+	}
+
+};
+
 add_action('arc_project_filters', 'arc_project_filters');
 function arc_project_filters() {
 
@@ -82,7 +102,6 @@ function arc_project_filters() {
     echo '<h2>Clients</h2>';
     echo '<ul class="arc-clients">' . implode("", $clients) . '</ul>'; 
     
-
 }
 
 /**

@@ -13,12 +13,8 @@
 
  $client = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
 
- if ( NULL !== $service && get_term_by( 'slug', $service , 'arc_project_tax' ) ) {
-	echo "valid";
- }
-
-
 get_header();
+
 ?>
 	<div class="stage">
 		<?php
