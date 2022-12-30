@@ -24,8 +24,8 @@
 				<?php
 				    $post_date = get_the_date( 'M d, Y' );
 					echo '<span class="posted-on">' . $post_date . '</span> | ';
-					echo '<span class="posted-in">' . arc_post_tags() . '</span><br>';
-					arc_posted_by();
+					echo '<span class="posted-in">Posted in' . arc_post_tags() . '</span><br>';
+					// arc_posted_by();
 				?>
 			</div><!-- .entry-meta -->
 		<?php endif; ?>
