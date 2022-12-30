@@ -9,6 +9,11 @@
  */
 require get_template_directory() . '/includes/arc-functions.php';
 
+ /**
+ * Theme Filters
+ */
+require get_template_directory() . '/includes/arc-filters.php';
+
 /**
  * Theme Actions
  */

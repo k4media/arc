@@ -263,16 +263,18 @@ body {
 .posted-on {
 	font-weight: 900;
 }
+.single a,
 .project-tags li a,
 .posted-in a,
 .pagination a,
 .entry-header .pdf a,
 .single .project .pdf a,
 .entry-header .jump a  {
-	border-bottom: dotted 1px var(--color-light-gray);
+	border-bottom: dotted 1px var(--color-gray);
 	color: var(--color-black);
 	text-decoration: none;
 }
+.single a:hover,
 .project-tags li a:hover,
 .posted-in a:hover,
 .pagination a:hover,

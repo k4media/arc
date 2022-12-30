@@ -24,7 +24,9 @@ get_header();
 		?>
 		<main id="primary" class="site-main">
 
-			<header class="page-header"><h1>News</h1></header>
+			<header class="page-header">
+				<?php the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
+			</header>
 
 			<?php
 			if ( have_posts() ) :
