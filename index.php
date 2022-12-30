@@ -24,6 +24,8 @@ get_header();
 		?>
 		<main id="primary" class="site-main">
 
+			<header class="page-header"><h1>News</h1></header>
+
 			<?php
 			if ( have_posts() ) :
 

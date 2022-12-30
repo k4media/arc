@@ -85,6 +85,10 @@ function arc_project_filters() {
 
     global $wpdb;
 
+    $selected = array();
+
+    $query_vars = array();
+    
     /**
      * Services query args
      */
@@ -93,7 +97,7 @@ function arc_project_filters() {
     $service_term = get_term_by( 'slug', $get_service , 'arc_project_tax' );
 
     if ( isset($service_term->slug) ) {
-        $link = add_query_arg( array('service' => $service_term->slug), get_post_type_archive_link('arc_projects') );
+        $selected['service'] = $service_term->slug;
     }
 
     /**
@@ -105,7 +109,7 @@ function arc_project_filters() {
     $client_term  = get_term_by( 'slug', $get_client , 'arc_clients' );
 
     if ( isset($client_term->slug) ) {
-        $link = add_query_arg( array('client' => $client_term->slug), get_post_type_archive_link('arc_projects') );
+        $selected['client'] = $client_term->slug;
     }
 
     /**
@@ -114,8 +118,8 @@ function arc_project_filters() {
 
     $get_year = ( isset( $_GET['pyear'] ) ) ? intval( substr($_GET['pyear'],0,4) ) : null;
 
-    if ( isset($get_year) && 0 !== $get_year ) {
-        $link = add_query_arg( array('year' => $get_year), get_post_type_archive_link('arc_projects') );
+    if ( isset($get_year) ) {
+        $selected['pyear'] = $get_year;
     }
 
     /**
@@ -123,10 +127,16 @@ function arc_project_filters() {
      */
 
     if ( ! is_single() && ( ! isset($_GET['service']) || false === $service_term ) ) {
-        $link = add_query_arg( array('service' => NULL), get_post_type_archive_link('arc_projects') );
         $services[] = '<li><span class="current-menu-item">View All</span></li>';
     } else {
-        $link = add_query_arg( array('service' => NULL), get_post_type_archive_link('arc_projects'));
+        $query_vars['service'] = NULL;
+        if ( isset($selected['client']) ) {
+            $query_vars['client'] = $selected['client'];
+        }
+        if ( isset($selected['pyear']) ) {
+            $query_vars['pyear'] = $selected['pyear'];
+        }
+        $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
         $services[] = '<li><a href="' . $link . '">View All</a></li>';
     }
     
@@ -139,16 +149,32 @@ function arc_project_filters() {
         foreach ($terms as $t) {
             $class="";
             if ( $get_service === $t->slug ) {
-                $link = add_query_arg( array('service' => NULL), $link);
+                $query_vars['service'] = NULL;
+                if ( isset($selected['client']) ) {
+                    $query_vars['client'] = $selected['client'];
+                }
+                if ( isset($selected['pyear']) ) {
+                    $query_vars['pyear'] = $selected['pyear'];
+                }
+                $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
                 $services[] = '<li><a class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">' . $t->name. '</a></li>';
             } else {
-                $link = add_query_arg( array('service' => urlencode($t->slug)), get_post_type_archive_link('arc_projects'));
+                $query_vars['service'] = urlencode($t->slug);
+                if ( isset($selected['client']) ) {
+                    $query_vars['client'] = $selected['client'];
+                }
+                if ( isset($selected['pyear']) ) {
+                    $query_vars['pyear'] = $selected['pyear'];
+                }
+                $link = add_query_arg( $query_vars , get_post_type_archive_link('arc_projects'));
                 $services[] = '<li><a class="" href="' . $link . '">' . $t->name. '</a></li>';
+                $query_vars['service'] = NULL;
             }
+            
         }
     }
 
-    echo '<h2>Services</h2>';
+    echo '<h3>Filter Projects</h3><h4>Services</h4>';
     echo '<ul class="arc-services">' . implode("", $services) . '</ul>';
 
     /**
@@ -158,7 +184,14 @@ function arc_project_filters() {
     if ( ! is_single() && ( ! isset($_GET['client']) || false === $client_term)  ) {
         $clients[] = '<li><span class="current-menu-item">View All</span></li>';
     } else {
-        $link = add_query_arg( array('client' => NULL), get_post_type_archive_link('arc_projects'));
+        if ( isset($selected['service']) ) {
+            $query_vars['service'] = $selected['service'];
+        }
+        $query_vars['client'] = NULL;
+        if ( isset($selected['pyear']) ) {
+            $query_vars['pyear'] = $selected['pyear'];
+        }
+        $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects'));
         $clients[] = '<li><a href="' . $link . '">View All</a></li>';
     }
     
@@ -171,16 +204,31 @@ function arc_project_filters() {
         foreach ($terms as $t) {
             $class="";
             if ( $get_client === $t->slug ) {
-                $link = add_query_arg( array('client' => NULL), get_post_type_archive_link('arc_projects') );
+                if ( isset($selected['service']) ) {
+                    $query_vars['service'] = $selected['service'];
+                }
+                $query_vars['client'] = NULL;
+                if ( isset($selected['pyear']) ) {
+                    $query_vars['pyear'] = $selected['pyear'];
+                }
+                $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
                 $clients[] = '<li><a class="current-menu-item" href="' . $link . '">' . $t->name. '</a></li>';
             } else {
-                $link = add_query_arg( array('client' => urlencode($t->slug)), get_post_type_archive_link('arc_projects') );
+                if ( isset($selected['service']) ) {
+                    $query_vars['service'] = $selected['service'];
+                }
+                $query_vars['client'] = urlencode($t->slug);
+                if ( isset($selected['pyear']) ) {
+                    $query_vars['pyear'] = $selected['pyear'];
+                }
+                $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
                 $clients[] = '<li><a class="" href="' . $link . '">' . $t->name. '</a></li>';
+                $query_vars['client'] = NULL;
             }
         }
     }
 
-    echo '<h2>Clients</h2>';
+    echo '<h4>Clients</h4>';
     echo '<ul class="arc-clients">' . implode("", $clients) . '</ul>'; 
 
     /**
@@ -191,7 +239,14 @@ function arc_project_filters() {
      if ( ! is_single() && ( NULL === $get_year || 0 === $get_year ) ) {
         $output[] = '<li><span class="current-menu-item">View All</span></li>';
     } else {
-        $link = add_query_arg( array('pyear' => NULL), get_post_type_archive_link('arc_projects') );
+        if ( isset($selected['service']) ) {
+            $query_vars['service'] = $selected['service'];
+        }
+        if ( isset($selected['client']) ) {
+            $query_vars['client'] = $selected['client'];
+        }
+        $query_vars['pyear'] = NULL;
+        $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
         $output[] = '<li><a href="' . $link . '">View All</a></li>';
     }
 
@@ -210,16 +265,30 @@ function arc_project_filters() {
     
     foreach ( $years as $year ) {
         if ( isset($get_year) && $year == $get_year ) {
-            $link = add_query_arg( array("pyear" => ""), get_post_type_archive_link('arc_projects') );
+            if ( isset($selected['service']) ) {
+                $query_vars['service'] = $selected['service'];
+            }
+            if ( isset($selected['client']) ) {
+                $query_vars['client'] = $selected['client'];
+            }
+            $query_vars['pyear'] = NULL;
+            $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
             $output[] = '<li><a class="current-menu-item" href="' . $link . '">' . $year . '</a></li>';
         } else {
-            $link = add_query_arg( array('pyear' => $year), get_post_type_archive_link('arc_projects') );
+            if ( isset($selected['service']) ) {
+                $query_vars['service'] = $selected['service'];
+            }
+            if ( isset($selected['client']) ) {
+                $query_vars['client'] = $selected['client'];
+            }
+            $query_vars['pyear'] = $year;
+            $link = add_query_arg( $query_vars, get_post_type_archive_link('arc_projects') );
             $output[] = '<li><a href="' . $link . '">' . $year . '</a></li>';
         }
         
     }
 
-    echo '<h2>Years</h2>';
+    echo '<h4>Years</h4>';
     echo '<ul class="arc-years">' . implode("", $output) . '</ul>'; 
 }
 

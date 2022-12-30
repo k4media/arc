@@ -19,7 +19,10 @@ get_header();
 ?>
 	<div class="stage">
 		<?php
-			if ( "arc_projects" === get_post_type() ) {
+			if (  "arc_projects" === get_post_type() || 
+				isset($_GET['service']) || 
+				isset($_GET['client']) ||
+				isset($_GET['pyear']) ) {
 				get_sidebar("projects");
 			}
 		?>
