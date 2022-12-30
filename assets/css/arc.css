@@ -61,7 +61,7 @@ body {
 }
 .site-header li a:hover,
 .site-header .current-menu-item a,
-.site-header .current_page_parent a {
+.arc_projects-template-default .menu-item-object-arc_projects a {
 	border-bottom: solid 2px var(--color-white);
 }
 #colophon {
@@ -112,7 +112,6 @@ body {
 	color: var(--color-light-gray);
 	text-decoration: none;
 }
-
 .stage {
 	display: flex;
 	justify-content: space-between;
@@ -121,15 +120,15 @@ body {
 	padding-right: var(--font-size-body);
 }
 .stage .widget-area {
-	flex: 1 1 10%;
+	flex: 1 1 25%;
+	min-width: 350px;
 }
 .stage .site-main {
-	flex: 1 1 70%;
+	flex: 1 1 75%;
 	padding-left: 4em;
 	padding-right: 4em;
 }
 .stage .site-main article {
-	align-items: center;
 	border-bottom: dotted 1px var(--color-light-gray);
 	display: flex;
 	margin: 0 0 2em 0;
@@ -147,24 +146,18 @@ body {
 	line-height: 1.2em;
 }
 .site-main article h2 a {
-	color: var(--color-blue);
-	font-size: var(--font-size-huge);
-	font-weight: 900;
+	color: var(--color-black);
 	text-decoration: none;
 }
 .site-main article .excerpt {
 	color: var(--color-gray);
 }
-.entry-meta .posted-on {
+.entry-meta .project-date {
 	color: var(--color-black);
 	font-weight: 900;
 }
-.entry-meta .posted-in a {
-	color: var(--color-turquoise);
-	text-decoration: none;
-}
-.entry-meta .posted-in a:visited {
-	color: var(--color-blue);
+.entry-meta .project-client {
+	color: var(--color-gray);
 }
 #secondary h2 {
 	font-size: var(--font-size-body);
@@ -205,7 +198,9 @@ body {
 .single .entry-content h4,
 .single .entry-content h5,
 .single .entry-content h6,
-.single .entry-content p {
+.single .entry-content p,
+.single .project .entry-meta,
+.single .project .pdf {
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 760px;
@@ -213,6 +208,13 @@ body {
 .single .entry-content figure img {
 	display: block;
 	margin: auto;
+}
+.single .project .entry-meta {
+	font-size: var(--font-size-huge);
+	padding: 1em 0 1em 0;
+}
+.project .entry-content > h4 {
+	margin-top: 0;
 }
 #comments article,
 .comment-list {
@@ -242,8 +244,58 @@ body {
 .comment-metadata {
 	font-size: var(--font-size-small);
 }
-
 #secondary .current-menu-item {
 	color: var(--color-turquoise);
 	font-weight: 900;
+}
+.entry-header .pdf, .single .project .pdf {
+	background-image: url(../media/icon-pdf.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: block;
+	height: 36px;
+	margin: 1em auto 1em auto;
+	padding-left: 2em;
+}
+.single .project .pdf  {
+	margin-bottom: 2em;
+}
+.posted-on {
+	font-weight: 900;
+}
+.posted-in a,
+.pagination a,
+.entry-header .pdf a,
+.single .project .pdf a,
+.entry-header .jump a  {
+	border-bottom: dotted 1px var(--color-light-gray);
+	color: var(--color-black);
+	text-decoration: none;
+}
+.posted-in a:hover,
+.pagination a:hover,
+.entry-header .pdf a:hover,
+.single .project .pdf a:hover,
+.entry-header .jump a:hover {
+	border-bottom: solid 1px var(--color-black);
+}
+.jump {
+	margin: 1em 0 1em 0;
+}
+.pagination {
+	font-size: larger;
+	margin-bottom: 4em;
+}
+.pagination a {
+	padding: .5em;
+}
+.pagination .current {
+	background-color: var(--color-black);
+	color: var(--color-white);
+	font-weight: 900;
+	padding: .5em;
+}
+.edit-link {
+	display: block;
+	margin: 2em 0 2em 0;
 }

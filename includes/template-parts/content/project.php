@@ -9,29 +9,30 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class("project"); ?>>
 
 	<?php arc_post_thumbnail(); ?>
 
 	<header class="entry-header">
-		<?php
-		
-		the_title( '<h1 class="entry-title">', '</h1>' );
-
-		if ( 'post' === get_post_type() ) :
-			?>
-			<div class="entry-meta">
-				<?php
-				    $post_date = get_the_date( 'M d, Y' );
-					echo '<span class="posted-on">' . $post_date . '</span> | ';
-					echo '<span class="posted-in">' . arc_post_tags() . '</span><br>';
-					arc_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
+		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
 
+	<div class="entry-meta">
+		<?php arc_entry_meta(); ?>
+	</div><!-- .entry-meta -->
+
+
 	<div class="entry-content">
+
+		<?php
+			if ( function_exists('get_field') ) {
+				$pdf = get_field('pdf');
+			}
+			if ( isset($pdf['url']) ) : 
+		?>
+			<div class="pdf"><a target="_blank" href="<?php echo $pdf['url']; ?>">View PDF</a></div>
+		<?php endif; ?>
+
 		<?php
 		the_content(
 			sprintf(

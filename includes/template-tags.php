@@ -145,7 +145,7 @@ if ( ! function_exists( 'arc_post_thumbnail' ) ) :
 
 		<?php else : ?>
 
-			<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+			<a class="post-thumbnail" aria-hidden="true" tabindex="-1">
 				<?php
 					the_post_thumbnail(
 						'post-thumbnail',

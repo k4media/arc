@@ -1,5 +1,40 @@
 <?php
 
+function arc_entry_meta() {
+
+    if ( function_exists('get_field') ) {
+
+        // project years
+        $years = get_field('years', get_the_ID());
+        echo '<span class="project-date">' . implode("–", $years) . '</span> | ';
+
+        // project client
+        $client_id = get_field('clients', get_the_ID());
+        $client = get_term($client_id, 'arc_clients' );
+        echo '<span class="client">' . $client->name . '</span>';
+
+        // project services
+
+        if ( ! is_single() ) {
+
+            $services = get_field('services', get_the_ID());
+
+            $output = array();
+            foreach( $services as $s ) {
+                // $output[] = '<a href="' . get_term_link($s->term_id) . '">' . $s->name . '</a>';
+                $output[] = $s->name;
+            }
+
+            //$client = get_term($client_id, 'arc_clients' );
+            echo ' | <span class="services">' . implode(", ", $output) . '</span>';
+
+        }
+        
+
+    }
+
+}
+
 /**
 * Get url for front page image
 */
@@ -31,4 +66,12 @@ function arc_frontpage_hero_url() {
             return $images[$index];
         }
     }
+}
+
+/**
+ * Helper function to flatten multidimensional array
+ */
+function flatten_array(array $array) {
+    return iterator_to_array(
+         new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array)));
 }

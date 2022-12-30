@@ -23,7 +23,7 @@ get_header();
 				the_post();
 
 				if ( "arc_projects" === get_post_type() ) {
-					get_template_part( 'includes/template-parts/content/content', 'project' );
+					get_template_part( 'includes/template-parts/content/project');
 				} else {
 					get_template_part( 'includes/template-parts/content/content', get_post_type() );
 				}

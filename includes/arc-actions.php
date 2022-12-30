@@ -19,50 +19,131 @@ function arc_logo() {
 add_action( 'pre_get_posts', 'arc_project_archive_filters');
 function arc_project_archive_filters( $query ) {
 
-	$service = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
-	$service_term = get_term_by( 'slug', $service , 'arc_project_tax' );
+    if( is_admin() ) {
+        return $query;
+    }
 
-	if ( is_object($service_term) && isset($service_term->term_id) ) {
-		$taxquery = array(
-			array(
-				'taxonomy' => 'arc_project_tax',
-				'field' => 'term_id',
-				'terms' => array($service_term->term_id),
-				'operator'=> 'IN'
-			)
-		);
-		$query->set( 'tax_query', $taxquery );
-	}
+    if ( $query->is_main_query() && is_post_type_archive('arc_projects') ) {
 
-};
+        $service = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
+        $service_term = get_term_by( 'slug', $service , 'arc_project_tax' );
+
+        $client = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
+        $client_term = get_term_by( 'slug', $client , 'arc_clients' );
+
+        $get_year = ( isset( $_GET['pyear'] ) ) ? intval( substr($_GET['pyear'],0,4) ) : null;
+
+        $querylist = array();
+
+        if ( is_object($service_term) && isset($service_term->term_id) ) {
+            $querylist[] = array(
+                'taxonomy' => 'arc_project_tax',
+                'field' => 'term_id',
+                'terms' => array($service_term->term_id),
+                'operator'=> 'IN'
+            );
+            $query->set( 'tax_query', array($querylist) );
+        }
+
+        if ( is_object($client_term) && isset($client_term->term_id) ) {
+            $querylist[] = array(
+                'taxonomy' => 'arc_clients',
+                'field' => 'term_id',
+                'terms' => array($client_term->term_id),
+                'operator'=> 'IN'
+            );
+            $taxquery = array(
+                'relationship' => 'AND',
+                $querylist
+            );
+            $query->set( 'tax_query', array($querylist) );
+        } 
+
+        // sort by year
+        if ( isset($get_year) ) {
+            $query->set('meta_query', array(
+                    'relation' => 'OR',
+                    array(
+                        'key'       => 'years',
+                        'value'     => $get_year,
+                        'compare'   => 'LIKE'
+                    )
+                )
+            );
+        }
+
+        // order by project year descending
+        $query->set('orderby', 'meta_value');    
+        $query->set('meta_key', 'years');    
+        $query->set('order', 'DESC'); 
+        
+    }
+}
 
 add_action('arc_project_filters', 'arc_project_filters');
 function arc_project_filters() {
 
-    $services     = array();
+    global $wpdb;
 
+    /**
+     * Services query args
+     */
+    $services     = array();
     $get_service  = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
     $service_term = get_term_by( 'slug', $get_service , 'arc_project_tax' );
 
-    if ( ! isset($_GET['service']) || false === $service_term ) {
-        $services[] = '<li><span class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">View All</span></li>';
+    if ( isset($service_term->slug) ) {
+        $link = add_query_arg( array('service' => $service_term->slug), get_post_type_archive_link('arc_projects') );
+    }
+
+    /**
+     * Clients query args
+     */
+
+    $clients      = array();
+    $get_client   = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
+    $client_term  = get_term_by( 'slug', $get_client , 'arc_clients' );
+
+    if ( isset($client_term->slug) ) {
+        $link = add_query_arg( array('client' => $client_term->slug), get_post_type_archive_link('arc_projects') );
+    }
+
+    /**
+     * Year query args
+     */
+
+    $get_year = ( isset( $_GET['pyear'] ) ) ? intval( substr($_GET['pyear'],0,4) ) : null;
+
+    if ( isset($get_year) && 0 !== $get_year ) {
+        $link = add_query_arg( array('year' => $get_year), get_post_type_archive_link('arc_projects') );
+    }
+
+    /**
+     * Services navigation
+     */
+
+    if ( ! is_single() && ( ! isset($_GET['service']) || false === $service_term ) ) {
+        $link = add_query_arg( array('service' => NULL), get_post_type_archive_link('arc_projects') );
+        $services[] = '<li><span class="current-menu-item">View All</span></li>';
     } else {
-        $services[] = '<li><a href="' . get_post_type_archive_link('arc_projects') . '">View All</a></li>';
+        $link = add_query_arg( array('service' => NULL), get_post_type_archive_link('arc_projects'));
+        $services[] = '<li><a href="' . $link . '">View All</a></li>';
     }
     
     $args = array(
         'taxonomy' => 'arc_project_tax',
-        'hide_empty' => false,
+        'hide_empty' => true,
     );
     $terms = get_terms($args);
-
     if ( is_array($terms) ) {
         foreach ($terms as $t) {
             $class="";
             if ( $get_service === $t->slug ) {
+                $link = add_query_arg( array('service' => NULL), $link);
                 $services[] = '<li><a class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">' . $t->name. '</a></li>';
             } else {
-                $services[] = '<li><a class="" href="' . get_post_type_archive_link('arc_projects') . '?service=' . $t->slug . '">' . $t->name. '</a></li>';
+                $link = add_query_arg( array('service' => urlencode($t->slug)), get_post_type_archive_link('arc_projects'));
+                $services[] = '<li><a class="" href="' . $link . '">' . $t->name. '</a></li>';
             }
         }
     }
@@ -70,16 +151,15 @@ function arc_project_filters() {
     echo '<h2>Services</h2>';
     echo '<ul class="arc-services">' . implode("", $services) . '</ul>';
 
+    /**
+     * Clients navigation
+     */
 
-    $clients     = array();
-
-    $get_client  = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
-    $client_term = get_term_by( 'slug', $get_client , 'arc_clients' );
-
-    if ( ! isset($_GET['client']) || false === $client_term ) {
-        $clients[] = '<li><span class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">View All</span></li>';
+    if ( ! is_single() && ( ! isset($_GET['client']) || false === $client_term)  ) {
+        $clients[] = '<li><span class="current-menu-item">View All</span></li>';
     } else {
-        $clients[] = '<li><a href="' . get_post_type_archive_link('arc_projects') . '">View All</a></li>';
+        $link = add_query_arg( array('client' => NULL), get_post_type_archive_link('arc_projects'));
+        $clients[] = '<li><a href="' . $link . '">View All</a></li>';
     }
     
     $args = array(
@@ -87,21 +167,60 @@ function arc_project_filters() {
         'hide_empty' => false,
     );
     $terms = get_terms($args);
-
     if ( is_array($terms) ) {
         foreach ($terms as $t) {
             $class="";
             if ( $get_client === $t->slug ) {
-                $clients[] = '<li><a class="current-menu-item" href="' . get_post_type_archive_link('arc_projects') . '">' . $t->name. '</a></li>';
+                $link = add_query_arg( array('client' => NULL), get_post_type_archive_link('arc_projects') );
+                $clients[] = '<li><a class="current-menu-item" href="' . $link . '">' . $t->name. '</a></li>';
             } else {
-                $clients[] = '<li><a class="" href="' . get_post_type_archive_link('arc_projects') . '?client=' . $t->slug . '">' . $t->name. '</a></li>';
+                $link = add_query_arg( array('client' => urlencode($t->slug)), get_post_type_archive_link('arc_projects') );
+                $clients[] = '<li><a class="" href="' . $link . '">' . $t->name. '</a></li>';
             }
         }
     }
 
     echo '<h2>Clients</h2>';
     echo '<ul class="arc-clients">' . implode("", $clients) . '</ul>'; 
+
+    /**
+     * Years
+     */
     
+     $output = array();
+     if ( ! is_single() && ( NULL === $get_year || 0 === $get_year ) ) {
+        $output[] = '<li><span class="current-menu-item">View All</span></li>';
+    } else {
+        $link = add_query_arg( array('pyear' => NULL), get_post_type_archive_link('arc_projects') );
+        $output[] = '<li><a href="' . $link . '">View All</a></li>';
+    }
+
+    $years = array();
+    $query = 'SELECT meta_value FROM ' . $wpdb->prefix . 'postmeta WHERE meta_key="years"';
+    $results = $wpdb->get_results($query);
+
+    foreach ( $results as $r ) {
+        $project_years = unserialize($r->meta_value);
+        foreach ( $project_years as $p ) {
+            array_push($years, $p);
+        }
+    }
+    $years = array_unique($years);
+    rsort($years);
+    
+    foreach ( $years as $year ) {
+        if ( isset($get_year) && $year == $get_year ) {
+            $link = add_query_arg( array("pyear" => ""), get_post_type_archive_link('arc_projects') );
+            $output[] = '<li><a class="current-menu-item" href="' . $link . '">' . $year . '</a></li>';
+        } else {
+            $link = add_query_arg( array('pyear' => $year), get_post_type_archive_link('arc_projects') );
+            $output[] = '<li><a href="' . $link . '">' . $year . '</a></li>';
+        }
+        
+    }
+
+    echo '<h2>Years</h2>';
+    echo '<ul class="arc-years">' . implode("", $output) . '</ul>'; 
 }
 
 /**
