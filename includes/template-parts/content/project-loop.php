@@ -10,7 +10,9 @@
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <?php if ( has_post_thumbnail() ) : ?>
-        <div class="thumbnail"><?php arc_post_thumbnail(); ?></div>
+        <div class="thumbnail">
+            <?php arc_post_thumbnail(); ?>
+        </div>
     <?php endif; ?>
     <div class="entry">
 	    <header class="entry-header">
@@ -31,6 +33,8 @@
             <?php if ( strlen(get_the_content( null, false, get_the_ID() )) > 0 )  : ?>
                 <div class="jump"><a href="<?php echo get_the_permalink() ?>">View Project Summary</a></div>
             <?php endif; ?>
+            
+            <?php arc_project_tags(); ?>
 
         </header><!-- .entry-header -->
     </div>

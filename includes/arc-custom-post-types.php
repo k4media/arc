@@ -62,7 +62,7 @@ function arc_taxonomies() {
 		'update_item'       => __( 'Update Service', 'arc' ),
 		'add_new_item'      => __( 'Add New Service', 'arc' ),
 		'new_item_name'     => __( 'New Service', 'arc' ),
-		'menu_name'         => __( 'Project Services', 'arc' ),
+		'menu_name'         => __( 'Services', 'arc' ),
 	);
 
 	$args = array(
@@ -98,6 +98,31 @@ function arc_taxonomies() {
 	);
 
 	register_taxonomy( 'arc_clients', array( 'arc_projects' ), $args );
+
+	$labels = array(
+		'name'              => _x( 'Tags', 'Tags', 'arc' ),
+		'singular_name'     => _x( 'Tag', 'Tag', 'arc' ),
+		'search_items'      => __( 'Search  Tags', 'arc' ),
+		'all_items'         => __( 'All  Tags', 'arc' ),
+		'parent_item'       => __( 'Parent Tags', 'arc' ),
+		'parent_item_colon' => __( 'Parent Tags:', 'arc' ),
+		'edit_item'         => __( 'Edit Tags', 'arc' ),
+		'update_item'       => __( 'Update Tags', 'arc' ),
+		'add_new_item'      => __( 'Add New Tag', 'arc' ),
+		'new_item_name'     => __( 'New Tags', 'arc' ),
+		'menu_name'         => __( 'Tags', 'arc' ),
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'query_var'         => false,
+		'rewrite'      		=> array('slug' => 'project/tag', 'with_front' => true),
+		'show_ui'           => true,
+		'show_admin_column' => true,
+	);
+
+	register_taxonomy( 'arc_project_tags', array( 'arc_projects' ), $args );
 	
 }
 
@@ -126,10 +151,10 @@ function acf_load_project_years( $field ) {
 
     $year = date("Y");
 
-    for( $i = 2013; $i < $year+5 ; $i++ ) {
+    for( $i = $year+5 ; $i > 2008 ; $i-- ) {
          $field['choices'][$i] = $i;
     }
-    
+
     // return the field
     return $field;
     

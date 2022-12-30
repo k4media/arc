@@ -19,11 +19,11 @@ function arc_logo() {
 add_action( 'pre_get_posts', 'arc_project_archive_filters');
 function arc_project_archive_filters( $query ) {
 
-    if( is_admin() ) {
-        return $query;
-    }
+    if ( is_admin() || ! $query->is_main_query() ) {
+		return;    
+	}
 
-    if ( $query->is_main_query() && is_post_type_archive('arc_projects') ) {
+    if ( is_post_type_archive('arc_projects') ) {
 
         $service = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
         $service_term = get_term_by( 'slug', $service , 'arc_project_tax' );

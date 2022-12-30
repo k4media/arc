@@ -28,22 +28,13 @@ get_header();
 		<?php if ( have_posts() ) : ?>
 
 			<?php
-				
-				$title = array("Projects");
-
-				if ( NULL !== $service ) {
-					$title[] = esc_attr($service_term->name);
-				}
-				if ( NULL !== $client ) {
-					$title[] = esc_attr($client_term->name);
-				}
-				if ( NULL !== $year ) {
-					$title[] = esc_attr($year);
+				$title = "Projects";
+				$tag = get_queried_object();
+				if ( isset($tag->name) ) {
+					$title .= " / " . $tag->name;
 				}
 
-				$title = implode( " / ", $title);
 			?>
-			
 			<header class="page-header"><h1><?php echo $title ?></h1></header>
 
 			<?php

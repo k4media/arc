@@ -1,5 +1,21 @@
 <?php
 
+function arc_project_tags() {
+    if ( function_exists('get_field') ) {
+        $output = array();
+        $tags = get_field('tag');
+        if ( NULL !== $tags ){
+            foreach( $tags as $t ) {
+                if ( ! is_wp_error( get_term_link($t->term_id, 'arc_project_tags') ) ) {
+                    $output[] = '<li><a href="' . get_term_link($t->term_id, 'arc_project_tags') . '">' . $t->name . '</a></li>';
+                }
+            }
+            if ( count($output) > 0 ) {
+                echo '<fiv class="project-tags"><span>Tagged</span>: <ul>' . implode(", ", $output) . '</ul>';
+            }
+        }
+    }
+}
 function arc_entry_meta() {
 
     if ( function_exists('get_field') ) {
@@ -9,9 +25,12 @@ function arc_entry_meta() {
         echo '<span class="project-date">' . implode("–", $years) . '</span> | ';
 
         // project client
-        $client_id = get_field('clients', get_the_ID());
-        $client = get_term($client_id, 'arc_clients' );
-        echo '<span class="client">' . $client->name . '</span>';
+        $clients = array();
+        $client_ids = get_field('clients', get_the_ID());
+        foreach( $client_ids as $c) {
+            $clients[] = $c->name;
+        }
+        echo '<span class="client">' . implode(", ", $clients) . '</span>';
 
         // project services
 
