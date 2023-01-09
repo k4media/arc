@@ -9,6 +9,7 @@
  * @package Angkor_Research_&_Consulting
  */
 ?>
+
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>

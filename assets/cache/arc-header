@@ -1,0 +1,15 @@
+1672806282*#|#*	<a class="skip-link screen-reader-text" href="#primary">Skip to content</a>
+	<header id="masthead" class="site-header">
+		<div class='silo'>
+			<div class="site-branding">
+				<div class="site-logo"><a href="http://192.168.2.105/angkorresearch"><img src="http://192.168.2.105/angkorresearch/wp-content/uploads/2022/12/arc-logo-reverse.svg"></a></div>			</div><!-- .site-branding -->
+			<nav id="site-navigation" class="main-navigation">
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Primary Menu</button>
+				<ul id="primary" class="menu"><li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="http://192.168.2.105/angkorresearch/about-us/">About Us</a></li>
+<li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="http://192.168.2.105/angkorresearch/services/">Services</a></li>
+<li id="menu-item-187" class="menu-item menu-item-type-post_type_archive menu-item-object-arc_projects current-menu-item menu-item-187"><a href="http://192.168.2.105/angkorresearch/projects/" aria-current="page">Projects</a></li>
+<li id="menu-item-24" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-24"><a href="http://192.168.2.105/angkorresearch/news/">News</a></li>
+</ul>			</nav><!-- #site-navigation -->
+		</div>
+	</header><!-- #masthead -->
+

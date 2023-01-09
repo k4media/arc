@@ -9,6 +9,11 @@
  */
 require get_template_directory() . '/includes/arc-functions.php';
 
+/**
+ * Fragment Cache
+ */
+require get_template_directory() . '/includes/k4-cache.php';
+
  /**
  * Theme Filters
  */

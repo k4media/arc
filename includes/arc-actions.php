@@ -16,6 +16,14 @@ function arc_logo() {
     }
 }
 
+/**
+ * Projects Query.
+ * 
+ * Filter WP Main query for projects
+ * 
+ * @query WordPress query
+ * 
+ */
 add_action( 'pre_get_posts', 'arc_project_archive_filters');
 function arc_project_archive_filters( $query ) {
 
@@ -76,7 +84,13 @@ function arc_project_archive_filters( $query ) {
         $query->set('orderby', 'meta_value');    
         $query->set('meta_key', 'years');    
         $query->set('order', 'DESC'); 
-        
+
+        // optimize
+        $query->set('no_found_rows',  false);
+        $query->set('ignore_sticky_posts',  true);
+        $query->set('update_post_meta_cache',  true);
+        $query->set('update_post_term_cache',  true);
+
     }
 }
 
@@ -103,7 +117,6 @@ function arc_project_filters() {
     /**
      * Clients query args
      */
-
     $clients      = array();
     $get_client   = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
     $client_term  = get_term_by( 'slug', $get_client , 'arc_clients' );
@@ -115,9 +128,7 @@ function arc_project_filters() {
     /**
      * Year query args
      */
-
     $get_year = ( isset( $_GET['pyear'] ) ) ? intval( substr($_GET['pyear'],0,4) ) : null;
-
     if ( isset($get_year) ) {
         $selected['pyear'] = $get_year;
     }

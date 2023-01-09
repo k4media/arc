@@ -6,13 +6,11 @@
  *
  * @package Angkor_Research_&_Consulting
  */
-
-
- $service = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
- $service_term = get_term_by( 'slug', $service , 'arc_project_tax' );
- $client = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
- $client_term  = get_term_by( 'slug', $client , 'arc_clients' );
- $year     = ( isset( $_GET['pyear'] ) ) ? intval( substr($_GET['pyear'],0,4) ) : null;
+$service = ( isset( $_GET['service'] ) ) ? sanitize_text_field( $_GET['service'] ) : null;
+$service_term = get_term_by( 'slug', $service , 'arc_project_tax' );
+$client = ( isset( $_GET['client'] ) ) ? sanitize_text_field( $_GET['client'] ) : null;
+$client_term  = get_term_by( 'slug', $client , 'arc_clients' );
+$year     = ( isset( $_GET['pyear'] ) ) ? intval( substr($_GET['pyear'],0,4) ) : null;
 
 get_header();
 
@@ -74,5 +72,6 @@ get_header();
 
 	</main><!-- #main -->
 	</div>
+
 <?php
 get_footer();

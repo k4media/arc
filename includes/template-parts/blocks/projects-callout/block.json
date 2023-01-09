@@ -1,11 +1,11 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "name": "acf/arc-featured-projects",
-    "title": "Featured Projects",
-    "description": "Featured projects callout for front page",
+    "name": "acf/arc-projects-callout",
+    "title": "Projects Callout",
+    "description": "Highlight 3 projects on front page",
     "style": [ "file:./style.css" ],
     "category": "arc-block",
-    "icon": "dashicons-megaphone",
+    "icon": "portfolio",
     "acf": {
         "mode": "preview",
         "renderTemplate": "template.php"
