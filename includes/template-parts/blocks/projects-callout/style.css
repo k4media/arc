@@ -1,0 +1,58 @@
+#projects-callout-stage {
+    background-color: var(--color-blue);
+    padding: 4em 0 4em 0;
+}
+#projects-callout-stage h3 {
+    color: var(--color-white);
+}
+.projects-callout {
+    display: flex;
+    justify-content: space-between;
+}
+#projects-callout-stage .jump a {
+    border-bottom: dotted 1px rgba(255,255,255, .5);
+    color: var(--color-white);
+    text-decoration: none;
+}
+.project {
+    background-color: var(--color-white);
+    max-width: 340px;
+    padding-bottom: 1em;
+}
+.project h2 {
+    margin-top: .5em;
+}
+.project h2 a {
+    color: var(--color-blue);
+    display: block;
+    font-size: var(--font-size-body); 
+    padding: 0 20px 0 20px;
+    text-decoration: none;
+}
+.project time {
+    color: var(--color-medium-gray);
+    display: block;
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 20px;
+    text-transform: uppercase;
+}
+.project .thumbnail {
+    background-size: cover;
+    height: 200px;
+    width: 100%;
+}
+.project .clients,
+.project .services {
+    color: var(--color-dark-black);
+    font-size: var(--font-size-small);
+    padding: 0 20px 0 20px;
+}
+.project .clients span,
+.project .services span {
+    font-weight: 900;
+}
+.project .services a {
+    color: var(--color-turquoise);
+}

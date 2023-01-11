@@ -4,6 +4,7 @@
 	--color-black: #000;
 	--color-dark-gray: #131313;
 	--color-gray: #555555;
+	--color-medium-gray: #707070;
 	--color-light-gray: #cccccc;
 	--color-whisper: #E7E7E7;
 	--color-turquoise: #219DA9;
@@ -80,7 +81,7 @@ body {
 	padding-top: 4em;
 }
 .home .site-footer > div:first-child {
-	border-top: 0;
+	/* border-top: 0; */
 	padding-top: 2em;
 }
 #colophon .site-info img {
