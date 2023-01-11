@@ -84,3 +84,7 @@ html :where(.wp-block) {
 .photo-feature {
     height: 300px;
 }
+#projects-callout-stage {
+    background-color: var(--color-blue);
+    padding: 1em;
+}

@@ -1,25 +1,83 @@
 <?php
 
-     // get fields
-     if ( function_exists('get_fields') ) {
-          $projects = get_field('project');
+     /**
+      * Number of projects to display
+      */
+     $total_projects = 3;
+
+     /**
+      * Track post ids for query
+      */
+     $post_in = array();
+
+     /**
+      * Step 1: Get user designated posts
+      */
+      if ( function_exists('get_fields') ) {
+          $selected_projects = get_field('projects');
+          if ( is_array($selected_projects) ) {
+               $post_in = $selected_projects[0]['arcpro'];
+          }
      }
 
-     $posts_per_page = 3;
+     /**
+      * Step 2: If designated posts are less than $total_projects, get extra post ids
+      */
+     if ( count($post_in) < 3 ) {
 
-     $args = array(  
-          'post_type'      => 'arc_projects',
-          'post_status'    => 'publish',
-          'posts_per_page' => $posts_per_page, 
-          'orderby'        => 'date', 
-          'order'          => 'DESC', 
-      );
+          $extra_posts = $total_projects - count($post_in);
 
-      $query = new WP_Query($args);
+          $args = array(  
+               'post_type'              => 'arc_projects',
+               'post_status'            => 'publish',
+               'posts_per_page'         => $extra_posts,
+               'orderby'                => 'date', 
+               'order'                  => 'DESC',
+               'ignore_sticky_posts'    => true,
+               'no_found_rows'          => true,
+               'update_post_meta_cache' => false, 
+               'update_post_term_cache' => false,
+               'fields'                 => 'ids'
+          );
 
-      $output = array();
+          $query = new WP_Query($args);
 
-      if( count($query->posts) > 0 ) {
+          foreach( $query->posts as $p ) {
+               $post_in[] = $p;
+          }
+          
+     }
+
+     /**
+      * Main query args
+      */
+      $args = array(  
+          'post_type'              => 'arc_projects',
+          'post_status'            => 'publish',
+          'posts_per_page'         => $total_projects,
+          'orderby'                => 'date', 
+          'order'                  => 'DESC',
+          'ignore_sticky_posts'    => true,
+		'no_found_rows'          => true,
+          'update_post_meta_cache' => false, 
+          'update_post_term_cache' => false
+     );
+
+     /**
+      * Include selected projects, if any
+      */
+      if ( count($post_in) > 0 ) {
+          $args['post__in'] = $post_in;
+     }
+
+     /**
+      * Main query
+      */
+     $query = new WP_Query($args);
+
+     $output = array();
+
+     if( count($query->posts) > 0 ) {
           foreach ( $query->posts as $post ) {
 
                $meta = get_post_meta($post->ID);

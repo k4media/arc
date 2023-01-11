@@ -116,7 +116,7 @@ function arc_taxonomies() {
 	$args = array(
 		'hierarchical'      => true,
 		'labels'            => $labels,
-		'query_var'         => false,
+		'query_var'         => true,
 		'rewrite'      		=> array('slug' => 'project/tag', 'with_front' => true),
 		'show_ui'           => true,
 		'show_admin_column' => true,
