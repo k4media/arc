@@ -14,22 +14,25 @@
     color: var(--color-white);
     text-decoration: none;
 }
-.project {
+#projects-callout-stage .jump a:hover {
+    border-bottom: solid 1px rgba(255,255,255, 1);
+}
+#projects-callout-stage .project {
     background-color: var(--color-white);
     max-width: 340px;
     padding-bottom: 1em;
 }
-.project h2 {
+#projects-callout-stage .project h2 {
     margin-top: .5em;
 }
-.project h2 a {
+#projects-callout-stage .project h2 a {
     color: var(--color-blue);
     display: block;
     font-size: var(--font-size-body); 
     padding: 0 20px 0 20px;
     text-decoration: none;
 }
-.project time {
+#projects-callout-stage time {
     color: var(--color-medium-gray);
     display: block;
     font-size: var(--font-size-small);
@@ -38,21 +41,21 @@
     margin: 20px;
     text-transform: uppercase;
 }
-.project .thumbnail {
+#projects-callout-stage .thumbnail {
     background-size: cover;
     height: 200px;
     width: 100%;
 }
-.project .clients,
-.project .services {
+#projects-callout-stage .clients,
+#projects-callout-stage .services {
     color: var(--color-dark-black);
     font-size: var(--font-size-small);
     padding: 0 20px 0 20px;
 }
-.project .clients span,
-.project .services span {
+#projects-callout-stage .clients span,
+#projects-callout-stage .services span {
     font-weight: 900;
 }
-.project .services a {
+#projects-callout-stage .services a {
     color: var(--color-turquoise);
 }

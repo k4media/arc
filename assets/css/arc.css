@@ -160,6 +160,9 @@ body {
 .entry-meta .project-client {
 	color: var(--color-gray);
 }
+.stage #primary.single {
+	flex: 1 1 75%;
+}
 #secondary h2 {
 	font-size: var(--font-size-body);
 }
