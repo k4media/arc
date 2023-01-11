@@ -128,6 +128,6 @@
           <div class="projects-callout">
                <?php echo implode($output) ?>
           </div>
-          <div class="jump"><a href="<?php echo get_tag_link(64) ?>"><?php _e("View All Case Studies", "arc"); ?></a></div>
+          <div class="jump"><a href="<?php echo get_tag_link(11) ?>"><?php _e("View All Case Studies", "arc"); ?></a></div>
      </div>
 </div>
